@@ -1,13 +1,7 @@
 import { Router } from 'express';
-import Users from '../helpers/db/users.db.js';
-
+import * as UsersService from '../services/users/index.js';
 const router = Router();
 
-router.get('/', (req, res) => {
-	res.json({
-		message: 'Users fetched succesfully',
-		data: Users,
-	});
-});
+router.get('/', UsersService.getUsers);
 
 export default router;
