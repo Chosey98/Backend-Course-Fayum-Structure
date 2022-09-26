@@ -1,7 +1,7 @@
 import express from 'express';
 import BookRouter from './controllers/books.controller.js';
 import UserRouter from './controllers/users.controller.js';
-// import MovieRouter from './controllers/movies.controller.js';
+import MoviesRouter from './controllers/movies.controller.js';
 import logger from './helpers/middlewares/logger.js';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -11,9 +11,9 @@ app.use(express.json());
 app.use(logger);
 
 // -- Routes --
-// app.use('/movies', MovieRouter);
 app.use('/books', BookRouter);
 app.use('/users', UserRouter);
+app.use('/movies', MoviesRouter);
 
 const PORT = 3000;
 app.listen(PORT, () => {
