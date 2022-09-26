@@ -19,7 +19,7 @@ export function register(req, res) {
 			message: `Name should be at most 32 characters long`,
 		});
 	}
-	if (!email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+	if (!email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
 		return res.status(400).json({
 			message: `Invalid email`,
 		});

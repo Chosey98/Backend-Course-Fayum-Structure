@@ -5,7 +5,7 @@ export async function getMoviesFromApi(req, res) {
 	let value;
 	try {
 		value = await axios.get(
-			`https://api.themoviedb.org/3/movie/now_playing?api_key=${APIKEY}&language=en-US&page=1`
+			`https://api.themoviedb.org/3/movie/now_playing?api_key=${APIKEY}&language=en-US&page=1`,
 		);
 	} catch (err) {
 		console.log(err.message);

@@ -9,7 +9,7 @@ export function login(req, res) {
 			}`,
 		});
 	}
-	if (!email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+	if (!email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
 		return res.status(400).json({
 			message: `Invalid email`,
 		});
