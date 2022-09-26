@@ -6,6 +6,7 @@ import logger from './helpers/middlewares/logger.js';
 import dotenv from 'dotenv';
 dotenv.config();
 const app = express();
+
 // -- Middleware --
 app.use(express.json());
 app.use(logger);
