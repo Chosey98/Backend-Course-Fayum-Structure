@@ -2,6 +2,7 @@ import express from 'express';
 import BookRouter from './controllers/books.controller.js';
 import UserRouter from './controllers/users.controller.js';
 import MoviesRouter from './controllers/movies.controller.js';
+import AuthRouter from './controllers/auth.controller.js';
 import logger from './helpers/middlewares/logger.js';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -15,7 +16,7 @@ app.use(logger);
 app.use('/books', BookRouter);
 app.use('/users', UserRouter);
 app.use('/movies', MoviesRouter);
-
+app.use('/auth', AuthRouter);
 const PORT = 3000;
 app.listen(PORT, () => {
 	console.log('Server is running on port 3000');
