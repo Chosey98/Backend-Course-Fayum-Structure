@@ -5,12 +5,14 @@
   "description": "This is used for education purposes",
   "main": "index.js",
   "scripts": {
-	"start": "nodemon src/index.js",
+    "start": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.2",
     "express": "^4.18.1"
   },
   "devDependencies": {
