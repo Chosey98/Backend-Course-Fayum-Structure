@@ -1,19 +1,16 @@
 import bcrypt from 'bcrypt';
 import Users from '../../helpers/db/users.db.js';
+import loginSchema from '../../helpers/schemas/login.schema.js';
 export function login(req, res) {
-	const { email, password } = req.body;
-	if (!email || !password) {
-		return res.status(400).json({
-			message: `Please fill all the fields ${!email ? 'email, ' : ''}${
-				!password ? 'password' : ''
-			}`,
-		});
+	const { error, value } = loginSchema.validate(req.body, {
+		abortEarly: true,
+		allowUnknown: false,
+		convert: true,
+	});
+	if (error) {
+		return res.status(400).json({ message: error.message });
 	}
-	if (!email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
-		return res.status(400).json({
-			message: `Invalid email`,
-		});
-	}
+	const { email, password } = value;
 	const user = Users.find((u) => u.email === email);
 	if (!user) {
 		return res.status(400).json({
