@@ -1,9 +1,12 @@
 import bcrypt from 'bcrypt';
 import Users from '../../helpers/db/users.db.js';
-export function register(req, res) {
+import { badRequestResponse } from '../../helpers/functions/ResponseHandler.js';
+import { okResponse } from './../../helpers/functions/ResponseHandler.js';
+export function register(req, res,next) {
+	try{
 	const { name, email, password, age } = req.body;
 	if (Users.some((user) => user.email === email)) {
-		return res.status(400).json({ message: 'Email already exists' });
+		return badRequestResponse(res,'Email already exists')
 	}
 	const encryptedPassword = bcrypt.hashSync(password, 10);
 	const user = {
@@ -14,8 +17,6 @@ export function register(req, res) {
 		age,
 	};
 	Users.push(user);
-	return res.json({
-		message: 'User registered succesfully',
-		data: user,
-	});
+	return okResponse(res,'User registered succesfully',user)
+}catch(err){next(err)}
 }

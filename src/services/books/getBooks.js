@@ -1,7 +1,9 @@
 import Books from '../../helpers/db/books.db.js';
-export async function getBooks(req, res) {
-	res.json({
-		message: 'Books fetched succesfully',
-		data: Books,
-	});
+import { okResponse } from './../../helpers/functions/ResponseHandler.js';
+export async function getBooks(req, res,next) {
+	try{
+	return okResponse(res,'Books fetched succesfully',Books)
+	}catch(err){
+		next(err)
+	}
 }
