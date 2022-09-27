@@ -1,17 +1,4 @@
 {
-<<<<<<< HEAD
-  "env": {
-    "es2021": true,
-    "node": true
-  },
-  "extends": "eslint:recommended",
-  "overrides": [],
-  "parserOptions": {
-    "ecmaVersion": "latest",
-    "sourceType": "module"
-  },
-  "rules": {}
-=======
     "env": {
         "es2021": true,
         "node": true
@@ -22,5 +9,4 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     }
->>>>>>> 472a869abe46a3611e29192068c1ab8eaa2f8a43
 }

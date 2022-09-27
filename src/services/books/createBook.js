@@ -1,21 +1,20 @@
 import Books from '../../helpers/db/books.db.js';
-
-export function createBook(req, res) {
+import {badRequestResponse} from '../../helpers/functions/ResponseHandler.js'
+import { okResponse } from './../../helpers/functions/ResponseHandler.js';
+export  function createBook(req, res,next) {
+	try{
 	let { title, description, publishedAt, authorName } = req.body;
 	if (!title || !description || !publishedAt || !authorName) {
-		return res.status(400).json({
-			message: `Missing required fields, Required fields: ${
-				!title ? 'title, ' : ''
-			}${!description ? 'description, ' : ''}${
-				!publishedAt ? 'publishedAt, ' : ''
-			}${!authorName ? 'authorName' : ''}`,
-		});
+		return badRequestResponse(res,`Missing required fields, Required fields: ${
+			 		!title ? 'title, ' : ''
+			 	}${!description ? 'description, ' : ''}${
+			 		!publishedAt ? 'publishedAt, ' : ''
+			 	}${!authorName ? 'authorName' : ''}`)
+
 	}
 	publishedAt = parseInt(publishedAt);
 	if (isNaN(publishedAt)) {
-		return res
-			.status(400)
-			.json({ message: 'Published at must be a number' });
+		return badRequestResponse(res,'Published at must be a number')
 	}
 	const book = {
 		id: Books.length + 1,
@@ -25,8 +24,8 @@ export function createBook(req, res) {
 		authorName,
 	};
 	Books.push(book);
-	res.json({
-		message: 'Book created successfully',
-		data: book,
-	});
+	return okResponse(res,'Book created successfully',book)
+}catch(err){
+	next(err)
+}
 }

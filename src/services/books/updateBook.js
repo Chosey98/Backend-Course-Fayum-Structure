@@ -1,24 +1,22 @@
 import Books from '../../helpers/db/books.db.js';
+import { badRequestResponse } from '../../helpers/functions/ResponseHandler.js';
+import { okResponse } from './../../helpers/functions/ResponseHandler.js';
 
-export function updateBook(req, res) {
+export function updateBook(req, res,next) {
+	try{
 	const { id } = req.params;
 	const bookIndex = Books.findIndex((book) => book.id === parseInt(id));
 	if (bookIndex === -1) {
-		return res.status(400).json({ message: 'Book not found' });
+		return badRequestResponse(res,'Book not found')
 	}
 	let { title, description, publishedAt, authorName } = req.body;
 	if (!title && !description && !publishedAt && !authorName) {
-		return res.status(400).json({
-			message:
-				'Missing at least one field, Fields available to update: title, description, publishedAt, authorName',
-		});
+		return badRequestResponse(res,'Missing at least one field, Fields available to update: title, description, publishedAt, authorName')
 	}
 	if (publishedAt) {
 		publishedAt = parseInt(publishedAt);
 		if (isNaN(publishedAt)) {
-			return res
-				.status(400)
-				.json({ message: 'Published at must be a number' });
+			return badRequestResponse(res,'Published at must be a number')
 		}
 	}
 	Books[bookIndex] = {
@@ -28,8 +26,8 @@ export function updateBook(req, res) {
 		publishedAt: publishedAt || Books[bookIndex].publishedAt,
 		authorName: authorName || Books[bookIndex].authorName,
 	};
-	res.json({
-		message: 'Book updated',
-		data: Books[bookIndex],
-	});
+	return okResponse(res,'Book updated',Books)
+}catch(err){
+	next(err)
+}
 }
